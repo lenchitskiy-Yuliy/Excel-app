@@ -5,11 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
     <title>Exel in JavaScript</title>
 </head>
 <body>
     
-    <div id="app" class="container"></div>
+    <div id="app" class="container">
+        <div class="exel">
+            <header class="exel-header">
+                <input type="text" class="exel-header__input" value="Новая таблица">
+                <div class="exel-header__buttons">
+                    <div class="exel-header__button">
+                        <span class="material-icons">exit_to_app</span>
+                    </div>
+                    <div class="exel-header__button">
+                        <span class="material-icons">delete</span>
+                    </div>
+                </div>
+            </header>
+            <div class="exel-toolbar"></div>
+            <div class="exel-formula"></div>
+            <div class="exel-table"></div>
+        </div>
+    </div>
 
 </body>
 </html>
