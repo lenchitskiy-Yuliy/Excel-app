@@ -1,2 +1,27 @@
 @import '../mixins';
 @import '../variables';
+
+.exel-formula {
+    position: absolute;
+    top: $header-height + $toolbar-height;
+    right: 0;
+    left: 0;
+    display: flex;
+    height: $formula-height;
+    padding: 5px $padding-main;
+    border-bottom: 1px solid $grey;
+    &__info {
+        font-style: italic;
+        font-size: 14px;
+        padding-right: 10px;
+        border-right: 1px solid $grey;
+        font-weight: 600;
+        color: $grey_dark;
+        width: $widht-info;
+    }
+    &__input {
+        flex-grow: 1;
+        outline: none;
+        padding: 0 0 0 10px;
+    }
+}

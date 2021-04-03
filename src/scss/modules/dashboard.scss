@@ -1,0 +1,76 @@
+@import '../mixins';
+@import '../variables';
+
+.db {
+    &-header {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: $db-header-height;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+        box-shadow: 0px 2px 5px 2px rgba(34, 60, 80, 0.2);
+        z-index: 99999;
+    }
+    &-new {
+        background-color: $grey_light;
+        padding: $db-header-height + 20px $padding-main 20px;
+        display: flex;
+        flex-wrap: wrap;
+        &__card {
+            height: 160px;
+            width: 160px;
+            margin: 0 20px 20px 0;
+            border: 1px solid $grey_dark;
+            border-radius: 10px;
+            text-decoration: none;
+            color: $dark;
+            display: flex;
+            background-color: #fff;
+            transition: .3s ease-in-out;
+            &--new {
+                justify-content: center;
+                align-items: center;
+            }
+            &:hover {
+                border-color: $green;
+                color: $green;
+                transform: scale(1.05);
+            }
+        }
+    }
+    &-table {
+        padding: 20px $padding-main;
+        &__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 0 12px;
+        }
+        &-item {
+            margin: 0 0 10px;
+            width: 100%;
+            padding: 0;
+            list-style-type: none;
+            border: 1px solid $grey;
+            transition: .2s ease-in-out;
+            border-radius: 5px;
+            &:hover {
+                border-color: $green;
+                transform: scale(1.008);
+                background-color: $grey_light;
+            }
+            &__link {
+                padding: 10px 12px 8px;
+                text-decoration: none;
+                color: $dark;
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+    }
+}

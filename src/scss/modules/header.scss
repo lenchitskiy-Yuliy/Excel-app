@@ -9,11 +9,14 @@
     right: 0;
     left: 0;
     height: $header-height;
-    padding: 8px 20px 0;
+    padding: 8px $padding-main;
     &__button {
         @include button();
         &:first-child {
             margin-right: 10px;
+        }
+        &--red {
+            @include button(rgb(212, 35, 35));
         }
     }
     &__input {
@@ -23,7 +26,8 @@
         padding: 5px;
         border: 1px solid transparent;
         transition: .2s ease-in-out;
-        &:hover {
+        outline: none;
+        &:hover, &:focus {
             border-color: $green;
         }
     }

@@ -1,2 +1,54 @@
 @import '../mixins';
 @import '../variables';
+
+.exel-table {
+    position: absolute;
+    top: $header-height + $toolbar-height + $formula-height;
+    right: 0;
+    left: 0;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    .row {
+        display: flex;
+        min-height: 20px;
+        min-height: $row-height;
+        &-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: $widht-info + $padding-main;
+            min-height: 100%;
+            border: 1px solid $grey;
+            background-color: $grey_light;
+            border-top: none;
+        }
+        &-data {
+            display: flex;
+            .column {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: $grey_light;
+                border: 1px solid $grey;
+                border-top: none;
+                border-left: none;
+                min-width: 40px;
+                width: $cell-width;
+            }
+        }
+    }
+    .cell {
+        min-width: 40px;
+        padding: 5px;
+        width: $cell-width;
+        border: 1px solid #dadada;
+        border-top: none;
+        border-left: none;
+        height: 100%;
+        outline: none;
+        &.selected {
+            border: none;
+            outline: 2px solid $active;
+        }
+    }
+}
