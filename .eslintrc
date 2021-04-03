@@ -1,0 +1,14 @@
+{
+    "parser": "babel-eslint",
+    "rules": {
+        "semi": "off",
+        "eol-last": 0,
+        "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
+        "linebreak-style": "off"
+    },
+    "env": {
+        "es6": true,
+        "browser": true
+    },
+    "extends": ["eslint:recommended", "google"]
+}
