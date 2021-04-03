@@ -4,7 +4,13 @@
         "semi": "off",
         "eol-last": 0,
         "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
-        "linebreak-style": "off"
+        "linebreak-style": "off",
+        "comma-dangle": "off",
+        "indent": "off",
+        "require-jsdoc": "off",
+        "padded-blocks": "off",
+        "no-trailing-spaces": "off",
+        "arrow-parens": "off"
     },
     "env": {
         "es6": true,
