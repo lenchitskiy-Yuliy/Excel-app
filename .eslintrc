@@ -10,7 +10,9 @@
         "require-jsdoc": "off",
         "padded-blocks": "off",
         "no-trailing-spaces": "off",
-        "arrow-parens": "off"
+        "arrow-parens": "off",
+        "max-len": "off",
+        "operator-linebreak": "off"
     },
     "env": {
         "es6": true,
