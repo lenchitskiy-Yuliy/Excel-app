@@ -1,0 +1,26 @@
+@import './variables';
+
+@mixin button($color: $green) {
+    height: 25px;
+    width: 25px;
+    padding: 2px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: 1px solid $grey_dark;
+    border-radius: 5px;
+    transition: .3s ease-in-out;
+    color: $grey_dark;
+    span {
+        font-size: 17px;
+    }
+    &:hover, &:active, &.active {
+        color: $color;
+    }
+    &:hover {
+        cursor: pointer;
+        border-color: $color;
+    }
+}
+
