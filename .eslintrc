@@ -3,8 +3,16 @@
     "rules": {
         "semi": "off",
         "eol-last": 0,
-        "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
-        "linebreak-style": "off"
+        "no-multiple-empty-lines": "off",
+        "linebreak-style": "off",
+        "comma-dangle": "off",
+        "indent": "off",
+        "require-jsdoc": "off",
+        "padded-blocks": "off",
+        "no-trailing-spaces": "off",
+        "arrow-parens": "off",
+        "max-len": "off",
+        "operator-linebreak": "off"
     },
     "env": {
         "es6": true,
