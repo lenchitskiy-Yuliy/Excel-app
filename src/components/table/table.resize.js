@@ -40,5 +40,4 @@ export function resizeTable(event, $root) {
             bottom: 0
         })
     }
-    
 }

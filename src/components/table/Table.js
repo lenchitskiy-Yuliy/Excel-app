@@ -1,7 +1,10 @@
 import {ExcelComponent} from '@core/ExcelComponent'
+import {$} from '@core/dom'
+import {TableSelection} from '@/components/table/TableSelection'
 import {createTable} from '@/components/table/table.template'
 import {resizeTable} from '@/components/table/table.resize'
 import {shouldResize} from '@/components/table/table.functions'
+import {isCell} from '@/components/table/table.functions'
 
 export class Table extends ExcelComponent {
     static className = 'excel-table'
@@ -16,9 +19,23 @@ export class Table extends ExcelComponent {
         return createTable(40)
     }
 
+    prepare() {
+        this.selection = new TableSelection()
+    }
+
+    init() {
+        super.init()
+
+        const firstCell = this.$root.find('[data-id="0:0"]')
+        this.selection.select(firstCell)
+    }
+
     onMousedown(event) {
         if (shouldResize(event)) {
             resizeTable(event, this.$root)
+        } else if (isCell(event)) {
+            const target = $(event.target)
+            this.selection.select(target)
         }
     }
 }
