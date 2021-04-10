@@ -5,6 +5,7 @@ import {createTable} from '@/components/table/table.template'
 import {resizeTable} from '@/components/table/table.resize'
 import {shouldResize} from '@/components/table/table.functions'
 import {isCell} from '@/components/table/table.functions'
+import {matrix} from '@/components/table/table.functions'
 
 export class Table extends ExcelComponent {
     static className = 'excel-table'
@@ -34,8 +35,15 @@ export class Table extends ExcelComponent {
         if (shouldResize(event)) {
             resizeTable(event, this.$root)
         } else if (isCell(event)) {
-            const target = $(event.target)
-            this.selection.select(target)
+            const $target = $(event.target)
+            if (event.shiftKey) {
+                const $cells = matrix($target, this.selection.current)
+                    .map(id => this.$root.find(`[data-id="${id}"]`))
+                this.selection.selectedGroup($cells)
+            } else {
+                this.selection.select($target)
+            }
         }
     }
 }
+

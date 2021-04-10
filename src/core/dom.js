@@ -52,6 +52,17 @@ class Dom {
         return this.$el.dataset
     }
 
+    id(parce) {
+        if (parce) {
+            const parsed = this.id().split(':')
+            return {
+                row: +parsed[0],
+                col: +parsed[1]
+            }
+        }
+        return this.data.id
+    }
+
     find(selector) {
         return $(this.$el.querySelector(selector))
     }
