@@ -53,6 +53,7 @@
         &.selected {
             border: none;
             outline: 2px solid $active;
+            z-index: 2;
         }
     }
     .col-resize, .row-resize {
