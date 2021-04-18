@@ -1,5 +1,6 @@
-export class CreateStore {
+export class Store {
     constructor(rootReducer, initialState = {}) {
+        this.rootReducer = rootReducer
         this.state = rootReducer({...initialState}, {type: '__INIT__'})
         this.listeners = []
     }
