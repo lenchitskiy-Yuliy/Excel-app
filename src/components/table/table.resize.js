@@ -37,8 +37,9 @@ export function resizeHandler(event, $root) {
                 $parent.css({height: value + 'px'})
             }
             resolve({
+                type,
                 value,
-                id: type === 'col' ? $parent.data.col : null
+                id: $parent.data[type]
             })
             $resizer.css({
                 opacity: 0,

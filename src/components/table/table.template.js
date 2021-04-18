@@ -3,8 +3,12 @@ const CODES = {
     Z: 90
 }
 
-function toCell(row) {
+const WIDTH_COL = 120
+const HEIGHT_ROW = 24
+
+function toCell(row, colState) {
     return function(_, index) {
+        const widht = colState[index] ? colState[index] : WIDTH_COL
         return `
             <div
                 class="cell"
@@ -12,28 +16,35 @@ function toCell(row) {
                 data-col="${index}"
                 data-type="cell"
                 data-id="${row}:${index}"
+                style="width: ${widht}px"
             ></div>
         `
     }
 }
 
-function toColumn(col, index) {
-    return `
-        <div
-            class="column"
-            data-type="resizable"
-            data-col="${index}"
-        >${col}
-        <div
-        class="col-resize" data-resize="col"></div>
-        </div>
-    `
+function toColumn(colState) {
+    return function(col, index) {
+        const widht = colState[index] ? colState[index] : WIDTH_COL
+        return `
+            <div
+                class="column"
+                data-type="resizable"
+                data-col="${index}"
+                style="width: ${widht}px"
+            >${col}
+            <div
+            class="col-resize" data-resize="col"></div>
+            </div>
+        `
+    }
 }
 
-function createRow(content, index) {
+function createRow(content, index, rowState = {}) {
     const resizer = index ? '<div class="row-resize" data-resize="row"></div>' : ''
+    const dataRow = index ? `data-row="${index}"`: ''
+    const height = rowState[index] ? rowState[index] : HEIGHT_ROW
     return `
-        <div class="row" data-type="resizable">
+        <div class="row" data-type="resizable" ${dataRow} style="height: ${height}px"">
             <div class="row-info">
                 ${index ? index : ''}
                 ${resizer}
@@ -47,13 +58,15 @@ function toChart(_, index) {
     return String.fromCharCode(CODES.A + index)
 }
 
-export function createTable(rowsCount = 20) {
+export function createTable(rowsCount = 20, state = {}) {
     const colsCount = CODES.Z - CODES.A + 1
+    const colState = state.colState
+    const rowState = state.rowState
     const rows = []
     const cols = new Array(colsCount)
         .fill('')
         .map(toChart)
-        .map(toColumn)
+        .map(toColumn(colState))
         .join('')
 
     rows.push(createRow(cols))
@@ -61,10 +74,10 @@ export function createTable(rowsCount = 20) {
     for ( let row = 0; row < rowsCount; row++ ) {
         const cells = new Array(colsCount)
             .fill('')
-            .map(toCell(row))
+            .map(toCell(row, colState))
             .join('')
 
-        rows.push(createRow(cells, row + 1) )
+        rows.push(createRow(cells, row + 1, rowState) )
     }
 
     return rows.join('')

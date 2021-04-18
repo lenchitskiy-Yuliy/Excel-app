@@ -4,7 +4,7 @@ import {TableSelection} from '@/components/table/TableSelection'
 import {createTable} from '@/components/table/table.template'
 import {resizeHandler} from '@/components/table/table.resize'
 import {shouldResize, isCell, matrix, nextSelector} from '@/components/table/table.functions'
-import {TABLE_RESIZE} from '../../redux/types'
+import * as actions from '@/redux/actions'
 
 export class Table extends ExcelComponent {
     static className = 'excel-table'
@@ -18,7 +18,7 @@ export class Table extends ExcelComponent {
     }
 
     toHtml() {
-        return createTable(40)
+        return createTable(40, this.store.state)
     }
 
     prepare() {
@@ -38,25 +38,24 @@ export class Table extends ExcelComponent {
             this.selection.current.focus()
         })
 
-        this.$subscribe(state => {
-            console.log('TableState', state)
-        })
+        // this.$subscribe(state => {
+        //     console.log('TableState', state)
+        // })
     }
 
     selectCell($cell) {
         this.selection.select($cell)
         this.$emit('table:sellect', $cell)
-        this.$dispatch({type: 'TEST'})
+        // this.$dispatch({type: 'TEST'})
     }
 
     async resizeTable(event) {
         try {
             const data = await resizeHandler(event, this.$root)
-            this.$dispatch({type: TABLE_RESIZE, data})
+            this.$dispatch(actions.tableResize(data))
         } catch (e) {
             console.log('Resize error', e.message)
         }
-        
     }
 
     onMousedown(event) {
