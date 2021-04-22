@@ -6,18 +6,20 @@ const CODES = {
 const WIDTH_COL = 120
 const HEIGHT_ROW = 24
 
-function toCell(row, colState) {
+function toCell(row, state) {
     return function(_, index) {
-        const widht = colState[index] ? colState[index] : WIDTH_COL
+        const widht = state.colState[index] ? state.colState[index] : WIDTH_COL
+        const id = `${row}:${index}`
+        const text = state.dataState[id] || ''
         return `
             <div
                 class="cell"
                 contenteditable
                 data-col="${index}"
                 data-type="cell"
-                data-id="${row}:${index}"
+                data-id="${id}"
                 style="width: ${widht}px"
-            ></div>
+            >${text}</div>
         `
     }
 }
@@ -60,13 +62,11 @@ function toChart(_, index) {
 
 export function createTable(rowsCount = 20, state = {}) {
     const colsCount = CODES.Z - CODES.A + 1
-    const colState = state.colState
-    const rowState = state.rowState
     const rows = []
     const cols = new Array(colsCount)
         .fill('')
         .map(toChart)
-        .map(toColumn(colState))
+        .map(toColumn(state.colState))
         .join('')
 
     rows.push(createRow(cols))
@@ -74,10 +74,10 @@ export function createTable(rowsCount = 20, state = {}) {
     for ( let row = 0; row < rowsCount; row++ ) {
         const cells = new Array(colsCount)
             .fill('')
-            .map(toCell(row, colState))
+            .map(toCell(row, state))
             .join('')
 
-        rows.push(createRow(cells, row + 1, rowState) )
+        rows.push(createRow(cells, row + 1, state.rowState) )
     }
 
     return rows.join('')

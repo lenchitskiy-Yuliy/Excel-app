@@ -25,6 +25,13 @@ export class Table extends ExcelComponent {
         this.selection = new TableSelection()
     }
 
+    updateText(value) {
+        this.$dispatch(actions.changeText({
+            id: this.selection.current.id(),
+            value: value
+        }))
+    }
+
     init() {
         super.init()
 
@@ -32,21 +39,17 @@ export class Table extends ExcelComponent {
 
         this.$on('formula:input', text => {
             this.selection.current.text(text)
+            this.updateText(text)
         })
 
         this.$on('formula:done', () => {
             this.selection.current.focus()
         })
-
-        // this.$subscribe(state => {
-        //     console.log('TableState', state)
-        // })
     }
 
     selectCell($cell) {
         this.selection.select($cell)
         this.$emit('table:sellect', $cell)
-        // this.$dispatch({type: 'TEST'})
     }
 
     async resizeTable(event) {
@@ -90,9 +93,9 @@ export class Table extends ExcelComponent {
             this.selectCell($next)
         }
     }
-
+    
     onInput(event) {
-        this.$emit('table:input', $(event.target))
+        this.updateText($(event.target).text())
     }
 }
 
