@@ -15,6 +15,6 @@ export class Store {
         this.listeners.forEach(listener => listener(this.state))
     }
     getState() {
-        return this.state
+        return JSON.parse(JSON.stringify(this.state))
     }
 }
