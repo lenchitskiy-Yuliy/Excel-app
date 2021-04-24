@@ -32,18 +32,18 @@ export function creatToolbar(state) {
         },
         {
             icon: 'format_align_left',
-            active: false,
-            value: {textAligin: 'left'}
+            active: state.textAlign === 'left',
+            value: {textAlign: 'left'}
         },
         {
             icon: 'format_align_center',
-            active: false,
-            value: {textAligin: 'center'}
+            active: state.textAlign === 'center',
+            value: {textAlign: 'center'}
         },
         {
             icon: 'format_align_right',
-            active: false,
-            value: {textAligin: 'right'}
+            active: state.textAlign === 'right',
+            value: {textAlign: 'right'}
         },
     ]
     return buttons.map(toButton).join('')

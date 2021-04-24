@@ -6,14 +6,15 @@ import {Table} from '@/components/table/Table'
 import {Store} from '@core/createStore'
 import {rootReducer} from '@/redux/rootReducer'
 import {initialState} from '@/redux/initialState'
-import {storage} from '@core/utils'
+import {storage, debounce} from '@core/utils'
 import './scss/index.scss'
 
 const store = new Store(rootReducer, initialState)
-
-store.subscribe(state => {
+const stateListener = debounce(state => {
     storage('exel-state', state)
-})
+}, 300)
+
+store.subscribe(stateListener)
 
 const excel = new Excel('#app', {
     components: [Header, Toolbar, Formula, Table],

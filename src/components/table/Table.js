@@ -5,6 +5,8 @@ import {createTable} from '@/components/table/table.template'
 import {resizeHandler} from '@/components/table/table.resize'
 import {shouldResize, isCell, matrix, nextSelector} from '@/components/table/table.functions'
 import * as actions from '@/redux/actions'
+import {defaultStyles} from '@/constants'
+import {parse} from '@core/parse'
 
 export class Table extends ExcelComponent {
     static className = 'excel-table'
@@ -37,19 +39,30 @@ export class Table extends ExcelComponent {
 
         this.selectCell(this.$root.find('[data-id="0:0"]'))
 
-        this.$on('formula:input', text => {
-            this.selection.current.text(text)
-            this.updateText(text)
+        this.$on('formula:input', value => {
+            this.selection.current.attr('data-value', value)
+            this.selection.current.text(parse(value))
+            this.updateText(value)
         })
 
         this.$on('formula:done', () => {
             this.selection.current.focus()
+        })
+
+        this.$on('table:styles', value => {
+            this.selection.selectedStyles(value)
+            this.$dispatch(actions.applyStyles({
+                value,
+                ids: this.selection.ids
+            }))
         })
     }
 
     selectCell($cell) {
         this.selection.select($cell)
         this.$emit('table:sellect', $cell)
+        const styles = $cell.getStyle(Object.keys(defaultStyles))
+        this.$dispatch(actions.changeStyles(styles))
     }
 
     async resizeTable(event) {
