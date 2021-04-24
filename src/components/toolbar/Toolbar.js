@@ -1,39 +1,41 @@
-import {ExcelComponent} from '@core/ExcelComponent'
+import {ExcelStateComponent} from '@core/ExcelStateComponent'
+import {creatToolbar} from './toolbar.template'
+import {$} from '@core/dom'
+import {defaultStyles} from '../../constants'
 
-export class Toolbar extends ExcelComponent {
+export class Toolbar extends ExcelStateComponent {
     static className = 'excel-toolbar'
 
     constructor($root, options) {
         super($root, {
             name: 'Toolbar',
-            listeners: [],
+            listeners: ['click'],
+            subscribes: ['currentStyle'],
             ...options
         })
     }
 
+    prepare() {
+        this.initState(defaultStyles)
+    }
+
+    get template() {
+        return creatToolbar(this.state)
+    }
+
     toHtml() {
-        return `
-            <div class="excel-toolbar__button">
-                <span class="material-icons">format_bold</span>
-            </div>
-            <div class="excel-toolbar__button">
-                <span class="material-icons">format_italic</span>
-            </div>
-            <div class="excel-toolbar__button">
-                <span class="material-icons">format_strikethrough</span>
-            </div>
-            <div class="excel-toolbar__button">
-                <span class="material-icons">format_color_text</span>
-            </div>
-            <div class="excel-toolbar__button">
-                <span class="material-icons">format_align_left</span>
-            </div>
-            <div class="excel-toolbar__button">
-                <span class="material-icons">format_align_center</span>
-            </div>
-            <div class="excel-toolbar__button">
-                <span class="material-icons">format_align_right</span>
-            </div>
-        `
+        return this.template
+    }
+
+    storeChanged(changes) {
+        this.setState(changes.currentStyle)
+    }
+
+    onClick(event) {
+        const $target = $(event.target)
+        if ($target.data.type === 'button') {
+            const value = JSON.parse($target.data.value)
+            this.$emit('table:styles', value)
+        }
     }
 }
