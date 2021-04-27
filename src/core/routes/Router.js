@@ -29,7 +29,7 @@ export class Router {
             ? this.routes.excel
             : this.routes.dashboard
 
-        this.page = new Page()
+        this.page = new Page(ActiveRouter.param)
 
         this.$placeholder.append(this.page.getRoot())
 
